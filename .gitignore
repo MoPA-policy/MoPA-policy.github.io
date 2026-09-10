@@ -1,6 +1,3 @@
 .DS_Store
 /dist/
 __pycache__/
-
-# Keep original recordings local; publish assets/demos/web/ instead.
-/assets/demos/task*_demo*.mp4

@@ -1,3 +1,11 @@
+@font-face {
+  font-family: 'Inter';
+  src: url('./assets/fonts/inter-latin-bold.woff2') format('woff2');
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light;
   --background: #ffffff;
@@ -32,7 +40,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Opening fade only: the white background and figure backgrounds stay solid. */
+/* Opening fade; the hero video sits behind its content and white scrim. */
 @keyframes page-fade-in {
   from { opacity: 0; }
   to { opacity: 1; }
@@ -133,6 +141,11 @@ nav a[aria-current] {
   color: var(--foreground);
 }
 .hero {
+  --hero-video-opacity: 0.82;
+  --hero-inset: clamp(32px, 5vh, 88px);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -140,7 +153,78 @@ nav a[aria-current] {
   /* The sticky navigation remains in normal flow, including its 1px border. */
   min-height: calc(100vh - var(--nav-height) - 1px);
   min-height: calc(100dvh - var(--nav-height) - 1px);
-  padding-block: clamp(32px, 6vh, 80px);
+  padding-block: var(--hero-inset);
+}
+.hero-background {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--background);
+}
+.hero-background video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: var(--hero-video-opacity);
+}
+.hero-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, rgb(255 255 255 / 50%) 0%, rgb(255 255 255 / 32%) 55%, rgb(255 255 255 / 6%) 100%),
+    linear-gradient(to bottom, transparent 90%, #fff 100%);
+}
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 36px;
+  width: min(1600px, calc(100% - clamp(40px, 10vw, 280px)));
+  min-height: min(940px, calc(92dvh - var(--nav-height) - 2 * var(--hero-inset) - 1px));
+}
+.hero-byline {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #20252c;
+  font-weight: 600;
+  text-shadow: 0 1px 2px rgb(0 0 0 / 16%);
+}
+#paper-title::before,
+.hero-byline::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+  /* Feather only the scrim; the video and lettering keep their sharpness. */
+  filter: blur(clamp(20px, 2.5vw, 40px));
+}
+#paper-title::before {
+  inset: -56px -88px;
+  background: radial-gradient(ellipse closest-side at 50% 60%,
+    rgb(255 255 255 / 30%) 0%,
+    rgb(255 255 255 / 25%) 30%,
+    rgb(255 255 255 / 14%) 55%,
+    rgb(255 255 255 / 5%) 76%,
+    rgb(255 255 255 / 0%) 100%);
+}
+.hero-byline::before {
+  inset: -48px -72px;
+  background: radial-gradient(ellipse closest-side,
+    rgb(255 255 255 / 38%) 0%,
+    rgb(255 255 255 / 30%) 30%,
+    rgb(255 255 255 / 17%) 55%,
+    rgb(255 255 255 / 6%) 76%,
+    rgb(255 255 255 / 0%) 100%);
+}
+.hero-byline sup {
+  color: #343a43;
 }
 
 h1,
@@ -172,31 +256,114 @@ h2 > span {
 }
 
 .authors {
-  display: flex;
-  justify-content: center;
-  gap: 27px;
-  font-size: 1rem;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(5, max-content);
+  align-self: center;
+  justify-content: space-between;
+  width: min(100%, clamp(760px, 60vw, 1240px));
+  gap: 14px clamp(8px, 1vw, 24px);
+  font-size: clamp(16px, 1.05vw, 24px);
 }
-.placeholder-text:empty::before {
-  content: attr(data-placeholder);
-  color: var(--subtle);
+.authors > span,
+.affiliations > span {
+  white-space: nowrap;
+}
+.authors sup,
+.affiliations sup {
+  position: relative;
+  top: -0.5em;
+  line-height: 0;
+  vertical-align: baseline;
+}
+.authors sup {
+  display: inline-block;
+  width: 0;
+  margin-left: 0;
+  left: 2px;
+  text-align: left;
+  font-size: 0.7em;
 }
 .affiliations {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
-  gap: 22px;
-  color: var(--muted);
-  font-size: 0.875rem;
-  margin: 7px 0 2px;
+  gap: 6px clamp(22px, 3vw, 64px);
+  color: #343a43;
+  font-size: clamp(14px, 1vw, 20px);
+  margin: 22px 0 0;
+}
+.author-notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 28px;
+  margin: 12px 0 0;
+  color: #343a43;
+  font-size: clamp(12px, 0.72vw, 16px);
+}
+.affiliation-logos {
+  display: grid;
+  /* Common symbol-height baseline; individual scales balance visual weight. */
+  grid-template-columns: 2.975055fr 3.657765fr 5.072879fr 5.2fr;
+  align-items: center;
+  align-self: center;
+  gap: clamp(24px, 3vw, 64px);
+  width: min(100%, clamp(840px, 55vw, 1180px));
+  margin: 0;
+}
+.affiliation-logo {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  width: 100%;
+  aspect-ratio: var(--logo-ratio);
+  transform: scale(var(--logo-scale, 1));
+  transform-origin: center;
+}
+.affiliation-logo--tsinghua {
+  --logo-ratio: 2.975055;
+  --logo-scale: 1.1; /* Fine seal details and calligraphy need more visual weight. */
+}
+.affiliation-logo--xspark {
+  --logo-ratio: 3.657765;
+  --logo-scale: 0.9; /* The broad X and bold wordmark appear larger at equal height. */
+}
+.affiliation-logo--hkust-gz {
+  --logo-ratio: 5.072879;
+  --logo-scale: 1.02; /* The symbol occupies slightly less than the image height. */
+}
+.affiliation-logo--hku { --logo-ratio: 5.2; }
+.affiliation-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+}
+.affiliation-logo--xspark {
+  position: relative;
+  overflow: hidden;
+}
+.affiliation-logo--xspark img {
+  /* Original 6749x2951 PNG: visible bounds are (1525,970)-(5223,1981). */
+  position: absolute;
+  top: -95.944610%;
+  left: -41.238507%;
+  width: 182.504056%;
+  height: auto;
+  max-width: none;
 }
 
 .hero-actions {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap: 12px;
-  margin: 31px 0 19px;
+  gap: clamp(16px, 1.5vw, 32px);
+  margin: 0;
+}
+.hero-actions .button {
+  padding: 14px clamp(24px, 2vw, 44px);
+  font-size: clamp(14px, 0.9vw, 18px);
 }
 .button {
   display: inline-flex;
@@ -303,7 +470,10 @@ h2 > span {
   }
 
   .authors {
-    gap: 13px 22px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 32px;
     font-size: 0.9375rem;
   }
   .section {
@@ -321,6 +491,24 @@ h2 > span {
   .affiliations {
     flex-wrap: wrap;
     gap: 2px 18px;
+    margin-top: 14px;
+  }
+  .author-notes {
+    gap: 4px 18px;
+    margin-top: 8px;
+  }
+  .affiliation-logos {
+    /* The widest mark (HKU, 5.2:1) determines a shared height for both rows. */
+    --logo-height: min(36px, calc((100vw - 64px) / 10.4));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px 24px;
+    max-width: 400px;
+    margin-top: 0;
+  }
+  .affiliation-logo {
+    width: calc(var(--logo-height) * var(--logo-ratio));
+    height: var(--logo-height);
+    justify-self: center;
   }
 }
 @media (max-width: 440px) {
@@ -342,7 +530,7 @@ h2 > span {
   }
 
   .authors {
-    column-gap: 15px;
+    column-gap: 28px;
     font-size: 0.875rem;
   }
 
@@ -386,11 +574,11 @@ h2 > span {
   margin-bottom: 0;
 }
 
-/* Paper results: readable HTML labels and bars, with a shared 0–100 scale. */
+/* Paper Figure 1 palette, with selectable HTML labels and a shared 0–100 scale. */
 #benchmarks {
-  --chart-baseline: #bcc8d6;
-  --chart-highlight: #487bb6;
-  --chart-highlight-text: #2c609d;
+  --chart-baseline: #bdb2cc;
+  --chart-highlight: #e7a35b;
+  --chart-highlight-text: #8a4b0f;
 }
 .benchmark-meta p {
   margin: 0;
@@ -651,45 +839,6 @@ figcaption > span {
   color: var(--foreground);
 }
 
-.table-scroll {
-  overflow-x: auto;
-  padding: 10px 28px 23px;
-  scrollbar-color: #c8cdd3 var(--surface);
-  scrollbar-width: thin;
-}
-.table-scroll:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -4px;
-}
-table {
-  width: 100%;
-  border-collapse: collapse;
-  text-align: right;
-  white-space: nowrap;
-  font-size: 0.9375rem;
-}
-thead th {
-  font-size: 0.8125rem;
-  font-weight: 400;
-  color: var(--muted);
-}
-th,
-td {
-  padding: 19px 16px;
-  border-bottom: 1px solid #ececee;
-}
-th:first-child {
-  text-align: left;
-  padding-left: 4px;
-}
-tbody th {
-  font-weight: 400;
-  color: #3c4148;
-}
-td {
-  color: var(--muted);
-}
-
 .citation-heading {
   display: flex;
   justify-content: space-between;
@@ -699,11 +848,6 @@ td {
 }
 .citation-heading h2 {
   margin-bottom: 13px;
-}
-.citation-heading p {
-  font-size: 1rem;
-  color: var(--muted);
-  margin: 0;
 }
 .copy-button {
   display: inline-flex;
@@ -766,6 +910,7 @@ td {
   margin: 0;
 }
 .back-top {
+  margin-inline-start: auto;
   font-size: 0.8125rem;
   color: var(--muted);
   display: flex;
@@ -786,10 +931,6 @@ td {
 @media (max-width: 760px) {
   figcaption {
     padding: 17px 20px;
-  }
-
-  .table-scroll {
-    padding-inline: 16px;
   }
 
   .citation-heading {
@@ -850,23 +991,44 @@ td {
   width: 100%;
   height: auto;
 }
-audio { display: block; max-width: 100%; margin-block: 24px; }
-
 /* MoPA project content. Figure sources remain vector SVGs. */
 #paper-title {
-  font-size: clamp(72px, 9vw, 110px);
-  letter-spacing: -5px;
+  position: relative;
+  isolation: isolate;
+  font-size: inherit;
+  letter-spacing: normal;
   line-height: 1;
-  margin-bottom: 26px;
+  margin: 0;
+}
+.paper-brand {
+  display: block;
+  width: clamp(260px, 23vw, 560px);
+  margin-inline: auto;
+}
+.paper-brand img {
+  display: block;
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 20%)) drop-shadow(0 5px 12px rgb(0 0 0 / 10%));
 }
 #paper-title .paper-title-detail {
   display: block;
-  margin-top: 23px;
-  font-size: clamp(27px, 3.6vw, 42px);
-  font-weight: 500;
-  line-height: 1.23;
-  letter-spacing: -1.4px;
+  margin-top: clamp(24px, 3vh, 42px);
+  color: #333a44;
+  font-family: 'Inter', var(--font-sans);
+  font-size: clamp(33px, 2.75vw, 66px);
+  font-weight: 700;
+  font-kerning: normal;
+  line-height: 1.22;
+  letter-spacing: normal;
   text-wrap: balance;
+  text-shadow: 0 2px 4px rgb(0 0 0 / 18%);
+}
+.paper-title-mo {
+  color: #7041a9;
+}
+.paper-title-pa {
+  color: #e88c2b;
 }
 
 .figure-image {
@@ -924,6 +1086,10 @@ audio { display: block; max-width: 100%; margin-block: 24px; }
 .architecture-figure .figure-image img,
 .paper-figure-svg {
   min-width: 0;
+}
+.paper-figure-svg text {
+  -webkit-user-select: text;
+  user-select: text;
 }
 .architecture-figure figcaption {
   flex: 0 0 auto;
@@ -1043,12 +1209,21 @@ audio { display: block; max-width: 100%; margin-block: 24px; }
   .hero {
     padding-block: 28px;
   }
-
-  #paper-title {
-    letter-spacing: -3px;
+  .hero-content {
+    width: calc(100% - 40px);
+    min-height: 0;
+    gap: 28px;
+    justify-content: center;
+  }
+  #paper-title::before,
+  .hero-byline::before {
+    inset: -36px -24px;
+  }
+  .paper-brand {
+    width: clamp(210px, 60vw, 300px);
   }
   #paper-title .paper-title-detail {
-    letter-spacing: -0.7px;
+    font-size: clamp(24px, 5.9vw, 35px);
     margin-top: 20px;
   }
 
@@ -1091,14 +1266,5 @@ audio { display: block; max-width: 100%; margin-block: 24px; }
   nav {
     gap: 6px;
     font-size: 0.6875rem;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-  .button,
-  nav a {
-    transition: none;
   }
 }

@@ -1,4 +1,4 @@
-/* Page: inline figures, demo playback, navigation, citation, and wheel inertia. */
+/* Page: inline figures, background and demo playback, navigation, citation, and wheel inertia. */
 (function () {
   function setupInlineFigures() {
     var figures = Array.from(document.querySelectorAll('img[data-inline-svg]'));
@@ -7,10 +7,13 @@
     function loadFigure(placeholder) {
       if (observer) observer.unobserve(placeholder);
       var name = placeholder.getAttribute('data-inline-svg');
-      if (!['main', 'teaser', 'tsne', 'real_exp'].includes(name)) return;
+      if (!['main', 'teaser', 'attention', 'tsne', 'real_exp'].includes(name)) return;
       var resource = document.createElement('script');
       // A local script works on both HTTP and file://, where fetch is restricted.
-      resource.src = new URL('inline/' + name + '.js', placeholder.src).href;
+      var resourceUrl = new URL('inline/' + name + '.js', placeholder.src);
+      // Share the generated figure version so cached JS cannot restore an old SVG.
+      resourceUrl.search = new URL(placeholder.src).search;
+      resource.src = resourceUrl.href;
       resource.async = true;
       resource.onload = function () {
         var sources = window.__mopaInlineFigures || {};
@@ -51,6 +54,56 @@
     } else {
       figures.forEach(loadFigure);
     }
+  }
+
+  function setupHeroBackground() {
+    var video = document.querySelector('video[data-hero-video]');
+    if (!video) return;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    var visible = false;
+    var saveData = navigator.connection && navigator.connection.saveData;
+    var fallbackSource = video.querySelector('source');
+    var fallbackSrc = fallbackSource && fallbackSource.getAttribute('src');
+    var sourceSelected = false;
+    var using4k = false;
+
+    function update() {
+      var enabled = !reducedMotion.matches && !saveData;
+      if (enabled && visible && !document.hidden) {
+        if (!sourceSelected) {
+          sourceSelected = true;
+          var source4k = video.getAttribute('data-hero-4k-src');
+          // Large screens can use 4K HEVC; smaller screens keep the lighter H.264 file.
+          using4k = Boolean(source4k && fallbackSrc &&
+            window.matchMedia('(min-width: 1200px)').matches &&
+            video.canPlayType('video/mp4; codecs="hvc1"'));
+          if (using4k) video.src = source4k;
+        }
+        video.play().catch(function () { /* Keep the poster if autoplay is unavailable. */ });
+      } else {
+        video.pause();
+      }
+    }
+    // The file already contains the full recording at 2× speed.
+    video.muted = true;
+    video.addEventListener('error', function () {
+      if (!using4k) return;
+      using4k = false;
+      video.src = fallbackSrc;
+      update();
+    });
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (entries) {
+        visible = entries[0].isIntersecting;
+        update();
+      }).observe(video);
+    } else {
+      visible = true;
+    }
+    document.addEventListener('visibilitychange', update);
+    if (reducedMotion.addEventListener) reducedMotion.addEventListener('change', update);
+    else reducedMotion.addListener(update);
+    update();
   }
 
   function setupDemoVideos() {
@@ -128,7 +181,7 @@
 
     function prefersNativeScroll(element) {
       if (!(element instanceof Element)) return false;
-      if (element.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"]), video, audio, iframe, [data-native-scroll], .table-scroll, .citation-code'))
+      if (element.closest('input, textarea, select, [contenteditable]:not([contenteditable="false"]), video, audio, iframe, [data-native-scroll], .citation-code'))
         return true;
       while (element && element !== document.body && element !== root) {
         var style = getComputedStyle(element);
@@ -221,6 +274,7 @@
     if (window.__paperPageReady) return;
     window.__paperPageReady = 'true';
     setupInlineFigures();
+    setupHeroBackground();
     setupDemoVideos();
     var copyButton = document.querySelector('[data-copy-citation]');
     var resetTimer;
