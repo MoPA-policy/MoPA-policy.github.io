@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MoPA: Subsystem-Aligned Perceptual Streams for Coordinated Mobile Manipulation</title>
+    <meta name="description" content="MoPA aligns perceptual streams with mobility and manipulation to generate coordinated whole-body actions. Explore the method, ManiSkill-HAB results, and real-world robot experiments.">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="./styles.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#overview">Skip to content</a>
+    <header class="site-header">
+      <div class="nav-inner">
+        <nav aria-label="Page sections">
+          <a href="#overview">Overview</a>
+          <a href="#method">Method</a>
+          <a href="#benchmarks">Benchmarks</a>
+          <a href="#real-world">Real World</a>
+          <a href="#citation">Citation</a>
+        </nav>
+      </div>
+    </header>
+    <main id="top">
+      <!-- 论文标题与作者模板：姓名、单位和资源链接待填写。 -->
+      <section id="overview" class="hero container" aria-labelledby="paper-title">
+        <h1 id="paper-title">MoPA<span class="sr-only">:</span><span class="paper-title-detail">Subsystem-Aligned Perceptual Streams<br class="desktop-break"> for Coordinated Mobile Manipulation</span></h1>
+        <!-- 在空的 placeholder-text 标签内填写姓名/单位；灰色占位文字会自动消失。可复制作者条目，并修改上标对应单位。 -->
+        <div class="authors" aria-label="Authors">
+          <span><span class="placeholder-text" data-placeholder="Author 1"></span><sup>1</sup></span>
+          <span><span class="placeholder-text" data-placeholder="Author 2"></span><sup>1</sup></span>
+          <span><span class="placeholder-text" data-placeholder="Author 3"></span><sup>2</sup></span>
+        </div>
+        <p class="affiliations">
+          <span><sup>1</sup> <span class="placeholder-text" data-placeholder="Affiliation 1"></span></span>
+          <span><sup>2</sup> <span class="placeholder-text" data-placeholder="Affiliation 2"></span></span>
+        </p>
+        <!-- 链接暂留空：为对应 a 标签添加 href="实际网址" 并移除 aria-disabled；代码发布后可去掉 Coming soon。 -->
+        <div class="hero-actions">
+          <a class="button button-arxiv" role="link" aria-disabled="true" target="_blank" rel="noopener noreferrer">
+            <img class="brand-logo" src="./assets/logos/arxiv.svg" width="22" height="22" alt="" aria-hidden="true"> arXiv
+          </a>
+          <a class="button button-code" role="link" aria-disabled="true" target="_blank" rel="noopener noreferrer">
+            <img class="brand-logo" src="./assets/logos/github.svg" width="22" height="22" alt="" aria-hidden="true"> Code <span class="button-status">Coming soon</span>
+          </a>
+          <a class="button button-huggingface" role="link" aria-disabled="true" target="_blank" rel="noopener noreferrer">
+            <img class="brand-logo" src="./assets/logos/huggingface.svg" width="26" height="26" alt="" aria-hidden="true"> Hugging Face
+          </a>
+        </div>
+      </section>
+
+      <!-- 方法：架构图与 Figure 2 原文图注，下方用三张图展示架构效果。 -->
+      <section id="method" class="section container" aria-labelledby="method-title">
+        <h2 id="method-title" class="section-label">METHOD</h2>
+        <figure class="media-block method-figure">
+          <div class="figure-image">
+            <img data-inline-svg="main" src="./assets/main.svg" width="727" height="345" alt="MoPA architecture: head and wrist images and a language instruction enter a vision–language model. Mutually masked Mobile and Manip Query banks connect to matched base and manipulation action experts. Structured joint attention allows action streams to coordinate." loading="lazy" decoding="async">
+          </div>
+          <figcaption><span>Overview of MoPA.</span> (a) A shared vision–language foundation model produces separate Mobile Query and Manip Query streams that condition dedicated Base and Manipulation experts in a joint action head. (b) Structured visibility patterns in the VLM and action head: direct attention between the query streams is masked, each query stream connects to its matched action stream, and the two action streams remain coupled for whole-body coordination.</figcaption>
+        </figure>
+
+        <!-- 桌面端左侧概览，右侧上下展示分析图；窄屏按 teaser、attention、t-SNE 顺序排列。 -->
+        <section class="architecture-benefits" aria-labelledby="architecture-benefits-title">
+          <div class="architecture-summary">
+            <div class="architecture-heading">
+              <h3 id="architecture-benefits-title" class="section-title">What our<br><span>architecture enables.</span></h3>
+            </div>
+            <figure class="media-block architecture-figure">
+              <div class="figure-image">
+                <img data-inline-svg="teaser" src="./assets/teaser.svg" width="191" height="135" alt="Three architectures: shared perception with one action head, shared perception with separate action experts, and MoPA's subsystem-specific perception with coordinated experts. Bar charts compare simulation and real-world success rates." loading="lazy" decoding="async">
+              </div>
+              <figcaption>Separating action heads alone leaves perception–action alignment implicit. MoPA pairs each perceptual stream with its corresponding action stream while preserving coordination.</figcaption>
+            </figure>
+          </div>
+          <div class="architecture-evidence">
+            <figure class="media-block architecture-figure attention-figure">
+              <div class="figure-image">
+                <img src="./assets/attention.svg" width="1572" height="614" alt="Mobile Query attention and Manip Query attention visualizations shown alongside the same RGB robot observation." loading="lazy" decoding="async">
+              </div>
+              <figcaption>Mobile and Manip Queries attend to different regions of the same observation.</figcaption>
+            </figure>
+            <figure class="media-block architecture-figure">
+              <div class="figure-image">
+                <img data-inline-svg="tsne" src="./assets/tsne.svg" width="382" height="178" alt="A cosine-similarity heatmap for Manip and Mobile queries, and a t-SNE plot in which orange Manip Query states and purple Mobile Query states occupy largely distinct regions with some overlap." loading="lazy" decoding="async">
+              </div>
+              <figcaption>During inference, the two query banks exhibit differentiated representations with partial overlap, consistent with their respective roles in mobility and manipulation.</figcaption>
+            </figure>
+          </div>
+        </section>
+      </section>
+
+      <!-- Benchmarks：柱状图直接使用论文 Tables I–II 中报告的均值；所有坐标轴从 0 开始。 -->
+      <!-- SetTable：DP3、AC-DiT、GeoHAT、InCoM 使用深度输入；AnchorVLA 均值来自已报告的六项技能，未报告 Open Drawer。 -->
+      <section id="benchmarks" class="section container" aria-labelledby="benchmarks-title">
+        <div class="section-label">BENCHMARKS</div>
+        <div class="section-heading">
+          <h2 id="benchmarks-title">Stronger across<br><span>all three suites.</span></h2>
+          <div class="benchmark-meta section-heading-meta">
+            <p>ManiSkill-HAB</p>
+            <span>Mean success rate (%) ↑</span>
+          </div>
+        </div>
+        <div class="benchmark-grid">
+          <figure class="benchmark-chart benchmark-chart-wide" aria-labelledby="settable-title">
+            <figcaption class="chart-heading">
+              <h3 id="settable-title">SetTable</h3>
+              <span>7 skills · Table I</span>
+            </figcaption>
+            <div class="chart-content">
+              <div class="chart-gridlines" aria-hidden="true">
+                <span style="--tick: 0%"><span>100</span></span>
+                <span style="--tick: 25%"><span>75</span></span>
+                <span style="--tick: 50%"><span>50</span></span>
+                <span style="--tick: 75%"><span>25</span></span>
+                <span style="--tick: 100%"><span>0</span></span>
+              </div>
+              <ul class="chart-bars" aria-label="Mean success rate in percent">
+                <li class="chart-bar" style="--value: 21.6%">
+                  <span class="chart-bar-name">DP3</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.6<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 23.6%">
+                  <span class="chart-bar-name">ACT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">23.6<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 28.8%">
+                  <span class="chart-bar-name">DP</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">28.8<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 42.9%">
+                  <span class="chart-bar-name">RDT-1B</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">42.9<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 55.6%">
+                  <span class="chart-bar-name">AC-DiT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">55.6<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 59.1%">
+                  <span class="chart-bar-name">π<sub>0</sub></span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">59.1<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 64.0%">
+                  <span class="chart-bar-name">AnchorVLA</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">64.0<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 73.0%">
+                  <span class="chart-bar-name">MobileWAM</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">73.0<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 79.3%">
+                  <span class="chart-bar-name">GeoHAT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">79.3<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 83.8%">
+                  <span class="chart-bar-name">InCoM</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">83.8<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar chart-bar-highlight" style="--value: 88.3%">
+                  <span class="chart-bar-name">MoPA</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">88.3<span class="sr-only">%</span></span></span>
+                </li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="benchmark-chart" aria-labelledby="tidyhouse-title">
+            <figcaption class="chart-heading">
+              <h3 id="tidyhouse-title">TidyHouse</h3>
+              <span>18 skills · Table II</span>
+            </figcaption>
+            <div class="chart-content">
+              <div class="chart-gridlines" aria-hidden="true">
+                <span style="--tick: 0%"><span>100</span></span>
+                <span style="--tick: 25%"><span>75</span></span>
+                <span style="--tick: 50%"><span>50</span></span>
+                <span style="--tick: 75%"><span>25</span></span>
+                <span style="--tick: 100%"><span>0</span></span>
+              </div>
+              <ul class="chart-bars" aria-label="Mean success rate in percent">
+                <li class="chart-bar" style="--value: 16.9%">
+                  <span class="chart-bar-name">ACT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 15.2%">
+                  <span class="chart-bar-name">DP</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.2<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 30.5%">
+                  <span class="chart-bar-name">DP3</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">30.5<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 21.7%">
+                  <span class="chart-bar-name">DSPv2</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.7<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 47.8%">
+                  <span class="chart-bar-name">InCoM</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">47.8<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 51.8%">
+                  <span class="chart-bar-name">GeoHAT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">51.8<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar chart-bar-highlight" style="--value: 72.2%">
+                  <span class="chart-bar-name">MoPA</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">72.2<span class="sr-only">%</span></span></span>
+                </li>
+              </ul>
+            </div>
+          </figure>
+          <figure class="benchmark-chart" aria-labelledby="groceries-title">
+            <figcaption class="chart-heading">
+              <h3 id="groceries-title">PrepareGroceries</h3>
+              <span>18 skills · Table II</span>
+            </figcaption>
+            <div class="chart-content">
+              <div class="chart-gridlines" aria-hidden="true">
+                <span style="--tick: 0%"><span>100</span></span>
+                <span style="--tick: 25%"><span>75</span></span>
+                <span style="--tick: 50%"><span>50</span></span>
+                <span style="--tick: 75%"><span>25</span></span>
+                <span style="--tick: 100%"><span>0</span></span>
+              </div>
+              <ul class="chart-bars" aria-label="Mean success rate in percent">
+                <li class="chart-bar" style="--value: 14.8%">
+                  <span class="chart-bar-name">ACT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">14.8<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 9.1%">
+                  <span class="chart-bar-name">DP</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">9.1<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 15.7%">
+                  <span class="chart-bar-name">DP3</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.7<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 16.9%">
+                  <span class="chart-bar-name">DSPv2</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 40.5%">
+                  <span class="chart-bar-name">InCoM</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.5<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar" style="--value: 40.2%">
+                  <span class="chart-bar-name">GeoHAT</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.2<span class="sr-only">%</span></span></span>
+                </li>
+                <li class="chart-bar chart-bar-highlight" style="--value: 67.8%">
+                  <span class="chart-bar-name">MoPA</span>
+                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">67.8<span class="sr-only">%</span></span></span>
+                </li>
+              </ul>
+            </div>
+          </figure>
+        </div>
+      </section>
+
+      <!-- 真实机器人实验：对应论文第四节 D 与 Figure 3。 -->
+      <section id="real-world" class="section container" aria-labelledby="real-world-title">
+        <div class="section-label">REAL WORLD</div>
+        <div class="section-heading">
+          <h2 id="real-world-title">Ready for<br><span>the real world.</span></h2>
+          <p class="section-heading-meta">One policy jointly trained on 4 tasks.<br>200 demos and 20 evals per task.</p>
+        </div>
+        <figure class="media-block">
+          <div class="figure-image">
+            <img data-inline-svg="real_exp" src="./assets/real_exp.svg" width="435" height="178" alt="Real robot execution sequences for collecting fruit into a bowl, sorting blocks into color-matched cups, transferring a block between tables, and retrieving an object from a microwave, alongside the robot platform and baseline comparison chart." loading="lazy" decoding="async">
+          </div>
+          <figcaption><span>Real-world evaluation.</span> A HexFellow Trigger-A3 mobile base, IOTA vertical lift, and two AgileX PiPER-X arms perform tasks that combine navigation and manipulation. The figure shows task sequences, the platform, and comparisons with DP, AC-DiT, and π₀.₅.</figcaption>
+        </figure>
+        <!-- 视频已离线压缩并加速至 4 倍；task1 为分拣，task2 为水果收集。 -->
+        <div class="real-world-demos">
+          <section class="demo-task" aria-labelledby="demo-task-1-title">
+            <div class="demo-task-heading">
+              <h3 id="demo-task-1-title"><span class="demo-task-number">01</span>Color-matched sorting</h3>
+              <div class="demo-task-meta"><span>90% success</span><span class="demo-speed">4× speed</span></div>
+            </div>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Color-matched sorting: four demonstrations; scroll horizontally on small screens" data-native-scroll>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo1.jpg" aria-label="Color-matched sorting, demo 1, 4 times real-time speed">
+                <source src="./assets/demos/web/task1_demo1.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task1_demo1.mp4">Watch color-matched sorting, demo 1 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo2.jpg" aria-label="Color-matched sorting, demo 2, 4 times real-time speed">
+                <source src="./assets/demos/web/task1_demo2.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task1_demo2.mp4">Watch color-matched sorting, demo 2 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo3.jpg" aria-label="Color-matched sorting, demo 3, 4 times real-time speed">
+                <source src="./assets/demos/web/task1_demo3.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task1_demo3.mp4">Watch color-matched sorting, demo 3 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo4.jpg" aria-label="Color-matched sorting, demo 4, 4 times real-time speed">
+                <source src="./assets/demos/web/task1_demo4.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task1_demo4.mp4">Watch color-matched sorting, demo 4 (4× speed)</a>
+              </video>
+            </div>
+          </section>
+          <section class="demo-task" aria-labelledby="demo-task-2-title">
+            <div class="demo-task-heading">
+              <h3 id="demo-task-2-title"><span class="demo-task-number">02</span>Fruit collection</h3>
+              <div class="demo-task-meta"><span>85% success</span><span class="demo-speed">4× speed</span></div>
+            </div>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Fruit collection: four demonstrations; scroll horizontally on small screens" data-native-scroll>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo1.jpg" aria-label="Fruit collection, demo 1, 4 times real-time speed">
+                <source src="./assets/demos/web/task2_demo1.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task2_demo1.mp4">Watch fruit collection, demo 1 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo2.jpg" aria-label="Fruit collection, demo 2, 4 times real-time speed">
+                <source src="./assets/demos/web/task2_demo2.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task2_demo2.mp4">Watch fruit collection, demo 2 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo3.jpg" aria-label="Fruit collection, demo 3, 4 times real-time speed">
+                <source src="./assets/demos/web/task2_demo3.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task2_demo3.mp4">Watch fruit collection, demo 3 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo4.jpg" aria-label="Fruit collection, demo 4, 4 times real-time speed">
+                <source src="./assets/demos/web/task2_demo4.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task2_demo4.mp4">Watch fruit collection, demo 4 (4× speed)</a>
+              </video>
+            </div>
+          </section>
+          <section class="demo-task" aria-labelledby="demo-task-3-title">
+            <div class="demo-task-heading">
+              <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table transfer</h3>
+              <div class="demo-task-meta"><span>75% success</span><span class="demo-speed">4× speed</span></div>
+            </div>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table transfer: four demonstrations; scroll horizontally on small screens" data-native-scroll>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo1.jpg" aria-label="Cross-table transfer, demo 1, 4 times real-time speed">
+                <source src="./assets/demos/web/task3_demo1.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task3_demo1.mp4">Watch cross-table transfer, demo 1 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo2.jpg" aria-label="Cross-table transfer, demo 2, 4 times real-time speed">
+                <source src="./assets/demos/web/task3_demo2.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task3_demo2.mp4">Watch cross-table transfer, demo 2 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo3.jpg" aria-label="Cross-table transfer, demo 3, 4 times real-time speed">
+                <source src="./assets/demos/web/task3_demo3.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task3_demo3.mp4">Watch cross-table transfer, demo 3 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo4.jpg" aria-label="Cross-table transfer, demo 4, 4 times real-time speed">
+                <source src="./assets/demos/web/task3_demo4.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task3_demo4.mp4">Watch cross-table transfer, demo 4 (4× speed)</a>
+              </video>
+            </div>
+          </section>
+          <section class="demo-task" aria-labelledby="demo-task-4-title">
+            <div class="demo-task-heading">
+              <h3 id="demo-task-4-title"><span class="demo-task-number">04</span>Microwave retrieval</h3>
+              <div class="demo-task-meta"><span>55% success</span><span class="demo-speed">4× speed</span></div>
+            </div>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Microwave retrieval: four demonstrations; scroll horizontally on small screens" data-native-scroll>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo1.jpg" aria-label="Microwave retrieval, demo 1, 4 times real-time speed">
+                <source src="./assets/demos/web/task4_demo1.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task4_demo1.mp4">Watch microwave retrieval, demo 1 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo2.jpg" aria-label="Microwave retrieval, demo 2, 4 times real-time speed">
+                <source src="./assets/demos/web/task4_demo2.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task4_demo2.mp4">Watch microwave retrieval, demo 2 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo3.jpg" aria-label="Microwave retrieval, demo 3, 4 times real-time speed">
+                <source src="./assets/demos/web/task4_demo3.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task4_demo3.mp4">Watch microwave retrieval, demo 3 (4× speed)</a>
+              </video>
+              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo4.jpg" aria-label="Microwave retrieval, demo 4, 4 times real-time speed">
+                <source src="./assets/demos/web/task4_demo4.mp4" type="video/mp4">
+                <a href="./assets/demos/web/task4_demo4.mp4">Watch microwave retrieval, demo 4 (4× speed)</a>
+              </video>
+            </div>
+          </section>
+        </div>
+      </section>
+
+      <!-- 引用信息：作者与出版信息待确认。 -->
+      <section id="citation" class="section container citation-section" aria-labelledby="citation-title">
+        <div class="section-label">CITATION</div>
+        <div class="citation-heading">
+          <div><h2 id="citation-title">Build on this work.</h2></div>
+          <button type="button" class="copy-button" data-copy-citation aria-label="Copy BibTeX citation">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg>
+            <span data-copy-label>Copy BibTeX</span>
+          </button>
+        </div>
+        <pre class="citation-code" tabindex="0"><code id="bibtex">@misc{mopa,
+  title = {{MoPA}: Subsystem-Aligned Perceptual Streams for
+           Coordinated Mobile Manipulation},
+  note  = {Manuscript}
+}</code></pre>
+        <p class="copy-status" role="status" aria-live="polite" data-copy-status></p>
+      </section>
+    </main>
+    <footer class="site-footer container">
+      <p>MoPA · Coordinated Mobile Manipulation</p>
+      <a class="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    </footer>
+    <script src="./script.js" defer></script>
+  </body>
+</html>
