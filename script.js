@@ -270,9 +270,52 @@
     });
   }
 
+  function setupSideNavigation() {
+    var navigation = document.querySelector('[data-section-nav]');
+    if (!navigation) return;
+    var header = navigation.closest('.site-header');
+    var hero = document.getElementById('overview');
+    var compact = window.matchMedia('(max-width: 1100px)');
+    var toggle = navigation.querySelector('summary');
+    function updateVisibility() {
+      // Match the anchor inset so a direct #method visit also reveals the menu.
+      var inset = parseFloat(getComputedStyle(document.documentElement).scrollPaddingTop) || 0;
+      var visible = !hero || hero.getBoundingClientRect().bottom <= inset + 1;
+      header.classList.toggle('is-visible', visible);
+      header.inert = !visible;
+      if (!visible && compact.matches) navigation.open = false;
+    }
+    function syncLayout() {
+      navigation.open = !compact.matches;
+      updateVisibility();
+    }
+    syncLayout();
+    if (compact.addEventListener) compact.addEventListener('change', syncLayout);
+    else compact.addListener(syncLayout);
+    navigation.addEventListener('click', function (event) {
+      if (compact.matches && event.target.closest('a')) navigation.open = false;
+    });
+    document.addEventListener('pointerdown', function (event) {
+      if (compact.matches && navigation.open && !navigation.contains(event.target))
+        navigation.open = false;
+    });
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && compact.matches && navigation.open) {
+        navigation.open = false;
+        toggle.focus();
+      }
+    });
+    window.addEventListener('resize', updateVisibility);
+    window.addEventListener('pageshow', updateVisibility);
+    if (hero && 'ResizeObserver' in window)
+      new ResizeObserver(updateVisibility).observe(hero);
+    return updateVisibility;
+  }
+
   function start() {
     if (window.__paperPageReady) return;
     window.__paperPageReady = 'true';
+    var updateSideNavigation = setupSideNavigation();
     setupInlineFigures();
     setupHeroBackground();
     setupDemoVideos();
@@ -323,6 +366,7 @@
     var scheduled = false;
     function updateNav() {
       scheduled = false;
+      if (updateSideNavigation) updateSideNavigation();
       var active = null;
       targets.forEach(function (section) {
         if (section.getBoundingClientRect().top <= 180) active = section.id;

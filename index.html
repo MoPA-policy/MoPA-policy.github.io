@@ -7,12 +7,16 @@
     <meta name="description" content="MoPA enables mobile manipulation through Dual Perceptual Streams and Perception2Action Adaptation. Explore the method, ManiSkill-HAB skill success rates, and real-world full-task evaluation.">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="./assets/logos/mopa.svg?v=d114de1336a7" type="image/svg+xml">
-    <link rel="stylesheet" href="./styles.css?v=d52166ff62af">
+    <link rel="stylesheet" href="./styles.css?v=f2c76e8798a1">
   </head>
   <body>
     <a class="skip-link" href="#overview">Skip to content</a>
     <header class="site-header">
-      <div class="nav-inner">
+      <details class="nav-inner" data-section-nav open>
+        <summary class="nav-toggle" aria-label="Toggle section navigation">
+          <svg class="nav-menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h12M4 18h16"></path></svg>
+          <svg class="nav-close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </summary>
         <nav aria-label="Page sections">
           <a href="#overview">Overview</a>
           <a href="#method">Method</a>
@@ -20,7 +24,7 @@
           <a href="#real-world">Real World</a>
           <a href="#citation">Citation</a>
         </nav>
-      </div>
+      </details>
     </header>
     <main id="top">
       <!-- 论文标题与作者；资源链接待填写。 -->
@@ -308,7 +312,7 @@
         <div class="section-label">REAL WORLD</div>
         <div class="section-heading">
           <h2 id="real-world-title">Ready for<br><span>the real world.</span></h2>
-          <p class="section-heading-meta">One policy jointly trained on 4 tasks.<br>200 demos and 20 evals per task.</p>
+          <p class="section-heading-meta">MoPA jointly trained on 4 tasks in one policy.<br>200 demos and 20 evals per task.</p>
         </div>
         <figure class="media-block">
           <div class="figure-image">
@@ -321,97 +325,145 @@
           <section class="demo-task" aria-labelledby="demo-task-1-title">
             <div class="demo-task-heading">
               <h3 id="demo-task-1-title"><span class="demo-task-number">01</span>Color-matched sorting</h3>
-              <div class="demo-task-meta"><span>90% success</span><span class="demo-speed">4× speed</span></div>
+              <div class="demo-task-meta"><span>MoPA: 90% success</span><span class="demo-speed">4× speed</span></div>
             </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Color-matched sorting: four demonstrations; scroll horizontally on small screens" data-native-scroll>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo1.jpg?v=bd18af803f75" aria-label="Color-matched sorting, demo 1, 4 times real-time speed">
-                <source src="./assets/demos/web/task1_demo1.mp4?v=d74dc6b9ae98" type="video/mp4">
-                <a href="./assets/demos/web/task1_demo1.mp4?v=d74dc6b9ae98">Watch color-matched sorting, demo 1 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo2.jpg?v=1ada9f402d96" aria-label="Color-matched sorting, demo 2, 4 times real-time speed">
-                <source src="./assets/demos/web/task1_demo2.mp4?v=0542390b4574" type="video/mp4">
-                <a href="./assets/demos/web/task1_demo2.mp4?v=0542390b4574">Watch color-matched sorting, demo 2 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo3.jpg?v=88c58d1ab31a" aria-label="Color-matched sorting, demo 3, 4 times real-time speed">
-                <source src="./assets/demos/web/task1_demo3.mp4?v=d9a16370905f" type="video/mp4">
-                <a href="./assets/demos/web/task1_demo3.mp4?v=d9a16370905f">Watch color-matched sorting, demo 3 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_demo4.jpg?v=3cb8ba59c14c" aria-label="Color-matched sorting, demo 4, 4 times real-time speed">
-                <source src="./assets/demos/web/task1_demo4.mp4?v=038ad7b46ea8" type="video/mp4">
-                <a href="./assets/demos/web/task1_demo4.mp4?v=038ad7b46ea8">Watch color-matched sorting, demo 4 (4× speed)</a>
-              </video>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Color-matched sorting: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+              <figure class="demo-policy demo-policy--ours">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_mopa.jpg?v=bd18af803f75" aria-label="Color-matched sorting, MoPA policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98" type="video/mp4">
+                  <a href="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98">Watch color-matched sorting, MoPA policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">MoPA</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_dp.jpg?v=88c58d1ab31a" aria-label="Color-matched sorting, DP policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task1_dp.mp4?v=d9a16370905f" type="video/mp4">
+                  <a href="./assets/demos/web/task1_dp.mp4?v=d9a16370905f">Watch color-matched sorting, DP policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">DP</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_acdit.jpg?v=3cb8ba59c14c" aria-label="Color-matched sorting, AC-DiT policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8" type="video/mp4">
+                  <a href="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8">Watch color-matched sorting, AC-DiT policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">AC-DiT</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_pi05.jpg?v=1ada9f402d96" aria-label="Color-matched sorting, π0.5 policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task1_pi05.mp4?v=0542390b4574" type="video/mp4">
+                  <a href="./assets/demos/web/task1_pi05.mp4?v=0542390b4574">Watch color-matched sorting, π0.5 policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+              </figure>
             </div>
           </section>
           <section class="demo-task" aria-labelledby="demo-task-2-title">
             <div class="demo-task-heading">
               <h3 id="demo-task-2-title"><span class="demo-task-number">02</span>Fruit collection</h3>
-              <div class="demo-task-meta"><span>85% success</span><span class="demo-speed">4× speed</span></div>
+              <div class="demo-task-meta"><span>MoPA: 85% success</span><span class="demo-speed">4× speed</span></div>
             </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Fruit collection: four demonstrations; scroll horizontally on small screens" data-native-scroll>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo1.jpg" aria-label="Fruit collection, demo 1, 4 times real-time speed">
-                <source src="./assets/demos/web/task2_demo1.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task2_demo1.mp4">Watch fruit collection, demo 1 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo2.jpg" aria-label="Fruit collection, demo 2, 4 times real-time speed">
-                <source src="./assets/demos/web/task2_demo2.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task2_demo2.mp4">Watch fruit collection, demo 2 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo3.jpg" aria-label="Fruit collection, demo 3, 4 times real-time speed">
-                <source src="./assets/demos/web/task2_demo3.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task2_demo3.mp4">Watch fruit collection, demo 3 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_demo4.jpg" aria-label="Fruit collection, demo 4, 4 times real-time speed">
-                <source src="./assets/demos/web/task2_demo4.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task2_demo4.mp4">Watch fruit collection, demo 4 (4× speed)</a>
-              </video>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Fruit collection: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+              <figure class="demo-policy demo-policy--ours">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_mopa.jpg?v=c83b3948d3b9" aria-label="Fruit collection, MoPA policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f" type="video/mp4">
+                  <a href="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f">Watch fruit collection, MoPA policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">MoPA</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_dp.jpg?v=00b4d1b53d7d" aria-label="Fruit collection, DP policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d" type="video/mp4">
+                  <a href="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d">Watch fruit collection, DP policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">DP</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_acdit.jpg?v=ae02daa3e3d3" aria-label="Fruit collection, AC-DiT policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a" type="video/mp4">
+                  <a href="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a">Watch fruit collection, AC-DiT policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">AC-DiT</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_pi05.jpg?v=eddb3c0e1006" aria-label="Fruit collection, π0.5 policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169" type="video/mp4">
+                  <a href="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169">Watch fruit collection, π0.5 policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+              </figure>
             </div>
           </section>
           <section class="demo-task" aria-labelledby="demo-task-3-title">
             <div class="demo-task-heading">
               <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table block transfer</h3>
-              <div class="demo-task-meta"><span>75% success</span><span class="demo-speed">4× speed</span></div>
+              <div class="demo-task-meta"><span>MoPA: 75% success</span><span class="demo-speed">4× speed</span></div>
             </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table block transfer: four demonstrations; scroll horizontally on small screens" data-native-scroll>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo1.jpg" aria-label="Cross-table block transfer, demo 1, 4 times real-time speed">
-                <source src="./assets/demos/web/task3_demo1.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task3_demo1.mp4">Watch cross-table block transfer, demo 1 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo2.jpg" aria-label="Cross-table block transfer, demo 2, 4 times real-time speed">
-                <source src="./assets/demos/web/task3_demo2.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task3_demo2.mp4">Watch cross-table block transfer, demo 2 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo3.jpg" aria-label="Cross-table block transfer, demo 3, 4 times real-time speed">
-                <source src="./assets/demos/web/task3_demo3.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task3_demo3.mp4">Watch cross-table block transfer, demo 3 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_demo4.jpg" aria-label="Cross-table block transfer, demo 4, 4 times real-time speed">
-                <source src="./assets/demos/web/task3_demo4.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task3_demo4.mp4">Watch cross-table block transfer, demo 4 (4× speed)</a>
-              </video>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table block transfer: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+              <figure class="demo-policy demo-policy--ours">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_mopa.jpg?v=7b94550f4d45" aria-label="Cross-table block transfer, MoPA policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c" type="video/mp4">
+                  <a href="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c">Watch cross-table block transfer, MoPA policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">MoPA</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_dp.jpg?v=1229a2abc8d5" aria-label="Cross-table block transfer, DP policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d" type="video/mp4">
+                  <a href="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d">Watch cross-table block transfer, DP policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">DP</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_acdit.jpg?v=0ea48a001b5f" aria-label="Cross-table block transfer, AC-DiT policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3" type="video/mp4">
+                  <a href="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3">Watch cross-table block transfer, AC-DiT policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">AC-DiT</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_pi05.jpg?v=837ba4faed50" aria-label="Cross-table block transfer, π0.5 policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36" type="video/mp4">
+                  <a href="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36">Watch cross-table block transfer, π0.5 policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+              </figure>
             </div>
           </section>
           <section class="demo-task" aria-labelledby="demo-task-4-title">
             <div class="demo-task-heading">
               <h3 id="demo-task-4-title"><span class="demo-task-number">04</span>Microwave object retrieval</h3>
-              <div class="demo-task-meta"><span>55% success</span><span class="demo-speed">4× speed</span></div>
+              <div class="demo-task-meta"><span>MoPA: 55% success</span><span class="demo-speed">4× speed</span></div>
             </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Microwave object retrieval: four demonstrations; scroll horizontally on small screens" data-native-scroll>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo1.jpg" aria-label="Microwave object retrieval, demo 1, 4 times real-time speed">
-                <source src="./assets/demos/web/task4_demo1.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task4_demo1.mp4">Watch microwave object retrieval, demo 1 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo2.jpg" aria-label="Microwave object retrieval, demo 2, 4 times real-time speed">
-                <source src="./assets/demos/web/task4_demo2.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task4_demo2.mp4">Watch microwave object retrieval, demo 2 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo3.jpg" aria-label="Microwave object retrieval, demo 3, 4 times real-time speed">
-                <source src="./assets/demos/web/task4_demo3.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task4_demo3.mp4">Watch microwave object retrieval, demo 3 (4× speed)</a>
-              </video>
-              <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_demo4.jpg" aria-label="Microwave object retrieval, demo 4, 4 times real-time speed">
-                <source src="./assets/demos/web/task4_demo4.mp4" type="video/mp4">
-                <a href="./assets/demos/web/task4_demo4.mp4">Watch microwave object retrieval, demo 4 (4× speed)</a>
-              </video>
+            <div class="demo-video-row" tabindex="0" role="region" aria-label="Microwave object retrieval: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+              <figure class="demo-policy demo-policy--ours">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_mopa.jpg?v=982797644bcb" aria-label="Microwave object retrieval, MoPA policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4" type="video/mp4">
+                  <a href="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4">Watch microwave object retrieval, MoPA policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">MoPA</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_dp.jpg?v=c3b3dc54a8f6" aria-label="Microwave object retrieval, DP policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task4_dp.mp4?v=b148585fc15f" type="video/mp4">
+                  <a href="./assets/demos/web/task4_dp.mp4?v=b148585fc15f">Watch microwave object retrieval, DP policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">DP</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_acdit.jpg?v=d7e7dd332c71" aria-label="Microwave object retrieval, AC-DiT policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task4_acdit.mp4?v=27293963efff" type="video/mp4">
+                  <a href="./assets/demos/web/task4_acdit.mp4?v=27293963efff">Watch microwave object retrieval, AC-DiT policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">AC-DiT</figcaption>
+              </figure>
+              <figure class="demo-policy">
+                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_pi05.jpg?v=917f689ad8ab" aria-label="Microwave object retrieval, π0.5 policy, 4 times real-time speed">
+                  <source src="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f" type="video/mp4">
+                  <a href="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f">Watch microwave object retrieval, π0.5 policy (4× speed)</a>
+                </video>
+                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+              </figure>
             </div>
           </section>
         </div>
@@ -442,6 +494,6 @@
     <footer class="site-footer container">
       <a class="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
     </footer>
-    <script src="./script.js?v=807fff931b55" defer></script>
+    <script src="./script.js?v=476203b861fe" defer></script>
   </body>
 </html>
