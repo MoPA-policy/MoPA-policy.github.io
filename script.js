@@ -284,6 +284,12 @@
       header.classList.toggle('is-visible', visible);
       header.inert = !visible;
       if (!visible && compact.matches) navigation.open = false;
+      // Show reading progress through the content, excluding the full-screen cover.
+      var contentStart = hero ? hero.getBoundingClientRect().bottom + window.scrollY - inset : 0;
+      var scrollRange = document.documentElement.scrollHeight - window.innerHeight - contentStart;
+      var progress = visible && scrollRange > 0
+        ? Math.max(0, Math.min(1, (window.scrollY - contentStart) / scrollRange)) : 0;
+      header.style.setProperty('--nav-progress', progress.toFixed(4));
     }
     function syncLayout() {
       navigation.open = !compact.matches;
@@ -310,6 +316,59 @@
     if (hero && 'ResizeObserver' in window)
       new ResizeObserver(updateVisibility).observe(hero);
     return updateVisibility;
+  }
+
+  function setupSectionReveals() {
+    // Content stays visible if JavaScript or IntersectionObserver is unavailable.
+    if (!('IntersectionObserver' in window)) return;
+    var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (reducedMotion.matches) return;
+    var pending = new Set(document.querySelectorAll('[data-section-reveal]'));
+    if (!pending.size) return;
+
+    function cleanup() {
+      observer.disconnect();
+      document.removeEventListener('focusin', revealFocusedSection);
+      if (reducedMotion.removeEventListener)
+        reducedMotion.removeEventListener('change', updateMotionPreference);
+      else reducedMotion.removeListener(updateMotionPreference);
+    }
+
+    function reveal(section) {
+      if (!pending.delete(section)) return;
+      section.classList.remove('reveal-pending');
+      observer.unobserve(section);
+      if (!pending.size) cleanup();
+    }
+
+    function revealFocusedSection(event) {
+      if (event.target instanceof Element)
+        reveal(event.target.closest('[data-section-reveal]'));
+    }
+
+    function updateMotionPreference() {
+      if (reducedMotion.matches) pending.forEach(reveal);
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) reveal(entry.target);
+      });
+    }, { threshold: 0, rootMargin: '0px 0px -64px 0px' });
+
+    document.addEventListener('focusin', revealFocusedSection);
+    if (reducedMotion.addEventListener)
+      reducedMotion.addEventListener('change', updateMotionPreference);
+    else reducedMotion.addListener(updateMotionPreference);
+    pending.forEach(function (section) {
+      section.classList.add('reveal-pending');
+    });
+    // Paint the starting state before observing, including on direct hash visits.
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () {
+        pending.forEach(function (section) { observer.observe(section); });
+      });
+    });
   }
 
   function start() {
@@ -392,6 +451,7 @@
     );
     updateNav();
     setupInertia();
+    setupSectionReveals();
   }
   if (document.readyState === 'loading')
     document.addEventListener('DOMContentLoaded', start, { once: true });

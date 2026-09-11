@@ -7,23 +7,31 @@
     <meta name="description" content="MoPA enables mobile manipulation through Dual Perceptual Streams and Perception2Action Adaptation. Explore the method, ManiSkill-HAB skill success rates, and real-world full-task evaluation.">
     <meta name="theme-color" content="#ffffff">
     <link rel="icon" href="./assets/logos/mopa.svg?v=d114de1336a7" type="image/svg+xml">
-    <link rel="stylesheet" href="./styles.css?v=8ce4e73edaf4">
+    <link rel="stylesheet" href="./styles.css?v=5be69918c0a0">
   </head>
   <body>
     <a class="skip-link" href="#overview">Skip to content</a>
     <header class="site-header">
       <details class="nav-inner" data-section-nav open>
-        <summary class="nav-toggle" aria-label="Toggle section navigation">
+        <summary class="nav-toggle">
           <svg class="nav-menu-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M4 6h16M4 12h12M4 18h16"></path></svg>
           <svg class="nav-close-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+          <span class="nav-toggle-label">Contents</span>
         </summary>
-        <nav aria-label="Page sections">
-          <a href="#overview">Overview</a>
-          <a href="#method">Method</a>
-          <a href="#benchmarks">Benchmarks</a>
-          <a href="#real-world">Real World</a>
-          <a href="#citation">Citation</a>
-        </nav>
+        <div class="nav-panel">
+          <a class="nav-brand" href="#overview" aria-label="MoPA — back to overview">
+            <img src="./assets/logos/mopa.svg?v=d114de1336a7" width="270.72585" height="85.521" alt="" decoding="async">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5m-5 5 5-5 5 5"></path></svg>
+          </a>
+          <nav aria-label="Page sections">
+            <a href="#overview"><span class="nav-index" aria-hidden="true">01</span><span>Overview</span></a>
+            <a href="#method"><span class="nav-index" aria-hidden="true">02</span><span>Method</span></a>
+            <a href="#benchmarks"><span class="nav-index" aria-hidden="true">03</span><span>Benchmarks</span></a>
+            <a href="#real-world"><span class="nav-index" aria-hidden="true">04</span><span>Real World</span></a>
+            <a href="#citation"><span class="nav-index" aria-hidden="true">05</span><span>Citation</span></a>
+          </nav>
+          <div class="nav-progress" aria-hidden="true"><span></span></div>
+        </div>
       </details>
     </header>
     <main id="top">
@@ -91,395 +99,402 @@
       </section>
 
       <!-- 方法：图片下方说明沿用论文对应 Figure 的原始图注。 -->
-      <section id="method" class="section container" aria-labelledby="method-title">
-        <h2 id="method-title" class="section-label">METHOD</h2>
-        <figure class="media-block method-figure">
-          <div class="figure-image">
-            <img data-inline-svg="main" src="./assets/main.svg?v=0edfae85b440" width="725" height="348" alt="MoPA architecture: Dual Perceptual Streams extract subsystem-specific representations from shared Qwen3-VL context using mutually masked Mobile and Manip Query banks. Perception2Action Adaptation jointly updates each query bank with its matched action stream, while the two action streams communicate for whole-body coordination." loading="lazy" decoding="async">
-          </div>
-          <figcaption><span>Overview of MoPA.</span> (a) A shared vision–language foundation model produces separate Mobile Query and Manip Query streams that condition dedicated Base and Manipulation experts in a joint action head. (b) Structured visibility patterns in the VLM and action head: direct attention between the query streams is masked, each query stream connects to its matched action stream, and the two action streams remain coupled for whole-body coordination.</figcaption>
-        </figure>
-
-        <!-- 桌面端左侧概览，右侧上下展示分析图；窄屏按 teaser、attention、t-SNE 顺序排列。 -->
-        <section class="architecture-benefits" aria-labelledby="architecture-benefits-title">
-          <div class="architecture-summary">
-            <div class="architecture-heading">
-              <h3 id="architecture-benefits-title" class="section-title">Distinct queries<br><span>make a difference.</span></h3>
+      <section id="method" class="section" aria-labelledby="method-title">
+        <div class="container">
+          <h2 id="method-title" class="section-label" data-section-reveal>METHOD</h2>
+          <figure class="media-block method-figure" data-section-reveal>
+            <div class="figure-image">
+              <img data-inline-svg="main" src="./assets/main.svg?v=0edfae85b440" width="725" height="348" alt="MoPA architecture: Dual Perceptual Streams extract subsystem-specific representations from shared Qwen3-VL context using mutually masked Mobile and Manip Query banks. Perception2Action Adaptation jointly updates each query bank with its matched action stream, while the two action streams communicate for whole-body coordination." loading="lazy" decoding="async">
             </div>
-            <figure class="media-block architecture-figure">
-              <div class="figure-image">
-                <img data-inline-svg="teaser" src="./assets/teaser.svg?v=a0f1ef57f256" width="191" height="140" alt="Three architectures: shared perception with one action head, shared perception with separate action experts, and MoPA's subsystem-specific perception with coordinated experts. Bar charts compare mean SetTable skill success and mean real-world full-task success rates." loading="lazy" decoding="async">
+            <figcaption><span>Overview of MoPA.</span> (a) A shared vision–language foundation model produces separate Mobile Query and Manip Query streams that condition dedicated Base and Manipulation experts in a joint action head. (b) Structured visibility patterns in the VLM and action head: direct attention between the query streams is masked, each query stream connects to its matched action stream, and the two action streams remain coupled for whole-body coordination.</figcaption>
+          </figure>
+
+          <!-- 桌面端左侧概览，右侧上下展示分析图；窄屏按 teaser、attention、t-SNE 顺序排列。 -->
+          <section class="architecture-benefits" aria-labelledby="architecture-benefits-title">
+            <div class="architecture-summary">
+              <div class="architecture-heading" data-section-reveal>
+                <h3 id="architecture-benefits-title" class="section-title">Distinct queries<br><span>make a difference.</span></h3>
               </div>
-              <figcaption><span>Mobile-manipulation paradigms and performance.</span> (a) Shared perception conditions a unified action head. (b) Separate base and manipulation experts share perceptual conditioning. (c) MoPA combines subsystem-specific perception with action-level coordination. Bottom: average success rates in simulation and real-world experiments.</figcaption>
-            </figure>
-          </div>
-          <div class="architecture-evidence">
-            <figure class="media-block architecture-figure attention-figure">
-              <div class="figure-image">
-                <img data-inline-svg="attention" src="./assets/attention.svg?v=8e043e75e898" width="1192.5" height="384.75" alt="Mobile Query attention and Manip Query attention visualizations shown alongside the same RGB robot observation." loading="lazy" decoding="async">
-              </div>
-              <figcaption><span>Query attention visualization.</span> (a) Mobile Query attention, (b) the RGB observation, and (c) Manip Query attention.</figcaption>
-            </figure>
-            <figure class="media-block architecture-figure">
-              <div class="figure-image">
-                <img data-inline-svg="tsne" src="./assets/tsne.svg?v=c7f74bca285c" width="408" height="187" alt="A cosine-similarity heatmap for Manip and Mobile queries, and a t-SNE plot in which orange Manip Query states and purple Mobile Query states occupy largely distinct regions with some overlap." loading="lazy" decoding="async">
-              </div>
-              <figcaption><span>Query representations during inference.</span> Left: cosine-similarity heatmap. Right: t-SNE projection, with orange and purple denoting Manip Query and Mobile Query states, respectively.</figcaption>
-            </figure>
-          </div>
-        </section>
+              <figure class="media-block architecture-figure" data-section-reveal>
+                <div class="figure-image">
+                  <img data-inline-svg="teaser" src="./assets/teaser.svg?v=a0f1ef57f256" width="191" height="140" alt="Three architectures: shared perception with one action head, shared perception with separate action experts, and MoPA's subsystem-specific perception with coordinated experts. Bar charts compare mean SetTable skill success and mean real-world full-task success rates." loading="lazy" decoding="async">
+                </div>
+                <figcaption><span>Mobile-manipulation paradigms and performance.</span> (a) Shared perception conditions a unified action head. (b) Separate base and manipulation experts share perceptual conditioning. (c) MoPA combines subsystem-specific perception with action-level coordination. Bottom: average success rates in simulation and real-world experiments.</figcaption>
+              </figure>
+            </div>
+            <div class="architecture-evidence">
+              <figure class="media-block architecture-figure attention-figure" data-section-reveal>
+                <div class="figure-image">
+                  <img data-inline-svg="attention" src="./assets/attention.svg?v=8e043e75e898" width="1192.5" height="384.75" alt="Mobile Query attention and Manip Query attention visualizations shown alongside the same RGB robot observation." loading="lazy" decoding="async">
+                </div>
+                <figcaption><span>Query attention visualization.</span> (a) Mobile Query attention, (b) the RGB observation, and (c) Manip Query attention.</figcaption>
+              </figure>
+              <figure class="media-block architecture-figure" data-section-reveal>
+                <div class="figure-image">
+                  <img data-inline-svg="tsne" src="./assets/tsne.svg?v=c7f74bca285c" width="408" height="187" alt="A cosine-similarity heatmap for Manip and Mobile queries, and a t-SNE plot in which orange Manip Query states and purple Mobile Query states occupy largely distinct regions with some overlap." loading="lazy" decoding="async">
+                </div>
+                <figcaption><span>Query representations during inference.</span> Left: cosine-similarity heatmap. Right: t-SNE projection, with orange and purple denoting Manip Query and Mobile Query states, respectively.</figcaption>
+              </figure>
+            </div>
+          </section>
+        </div>
       </section>
 
       <!-- Benchmarks -->
-      <section id="benchmarks" class="section container" aria-labelledby="benchmarks-title">
-        <div class="section-label">BENCHMARKS</div>
-        <div class="section-heading">
-          <h2 id="benchmarks-title">Stronger across<br><span>all three suites.</span></h2>
-          <div class="benchmark-meta section-heading-meta">
-            <p>ManiSkill-HAB</p>
-            <span>Mean skill success rate (%) ↑</span>
+      <section id="benchmarks" class="section" aria-labelledby="benchmarks-title">
+        <div class="container">
+          <div class="section-label" data-section-reveal>BENCHMARKS</div>
+          <div class="section-heading" data-section-reveal>
+            <h2 id="benchmarks-title">Stronger across<br><span>all three suites.</span></h2>
+            <div class="benchmark-meta section-heading-meta">
+              <p>ManiSkill-HAB</p>
+              <span>Mean skill success rate (%) ↑</span>
+            </div>
           </div>
-        </div>
-        <div class="benchmark-grid">
-          <figure class="benchmark-chart benchmark-chart-wide" aria-labelledby="settable-title">
-            <figcaption class="chart-heading">
-              <h3 id="settable-title">SetTable</h3>
-              <span>7 skills · Table I</span>
-            </figcaption>
-            <div class="chart-content">
-              <div class="chart-gridlines" aria-hidden="true">
-                <span style="--tick: 0%"><span>100</span></span>
-                <span style="--tick: 25%"><span>75</span></span>
-                <span style="--tick: 50%"><span>50</span></span>
-                <span style="--tick: 75%"><span>25</span></span>
-                <span style="--tick: 100%"><span>0</span></span>
+          <div class="benchmark-grid">
+            <figure class="benchmark-chart benchmark-chart-wide" data-section-reveal aria-labelledby="settable-title">
+              <figcaption class="chart-heading">
+                <h3 id="settable-title">SetTable</h3>
+                <span>7 skills · Table I</span>
+              </figcaption>
+              <div class="chart-content">
+                <div class="chart-gridlines" aria-hidden="true">
+                  <span style="--tick: 0%"><span>100</span></span>
+                  <span style="--tick: 25%"><span>75</span></span>
+                  <span style="--tick: 50%"><span>50</span></span>
+                  <span style="--tick: 75%"><span>25</span></span>
+                  <span style="--tick: 100%"><span>0</span></span>
+                </div>
+                <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
+                  <li class="chart-bar" style="--value: 21.6%">
+                    <span class="chart-bar-name">DP3</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.6<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 23.6%">
+                    <span class="chart-bar-name">ACT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">23.6<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 28.8%">
+                    <span class="chart-bar-name">DP</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">28.8<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 42.9%">
+                    <span class="chart-bar-name">RDT-1B</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">42.9<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 55.6%">
+                    <span class="chart-bar-name">AC-DiT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">55.6<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 59.1%">
+                    <span class="chart-bar-name">π<sub>0</sub></span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">59.1<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 64.0%">
+                    <span class="chart-bar-name">AnchorVLA</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">64.0<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 68.9%">
+                    <span class="chart-bar-name">π<sub>0.5</sub></span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">68.9<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 73.0%">
+                    <span class="chart-bar-name">MobileWAM</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">73.0<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 79.3%">
+                    <span class="chart-bar-name">GeoHAT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">79.3<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 83.8%">
+                    <span class="chart-bar-name">InCoM</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">83.8<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar chart-bar-highlight" style="--value: 88.3%">
+                    <span class="chart-bar-name">MoPA</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">88.3<span class="sr-only">%</span></span></span>
+                  </li>
+                </ul>
               </div>
-              <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
-                <li class="chart-bar" style="--value: 21.6%">
-                  <span class="chart-bar-name">DP3</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.6<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 23.6%">
-                  <span class="chart-bar-name">ACT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">23.6<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 28.8%">
-                  <span class="chart-bar-name">DP</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">28.8<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 42.9%">
-                  <span class="chart-bar-name">RDT-1B</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">42.9<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 55.6%">
-                  <span class="chart-bar-name">AC-DiT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">55.6<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 59.1%">
-                  <span class="chart-bar-name">π<sub>0</sub></span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">59.1<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 64.0%">
-                  <span class="chart-bar-name">AnchorVLA</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">64.0<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 68.9%">
-                  <span class="chart-bar-name">π<sub>0.5</sub></span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">68.9<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 73.0%">
-                  <span class="chart-bar-name">MobileWAM</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">73.0<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 79.3%">
-                  <span class="chart-bar-name">GeoHAT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">79.3<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 83.8%">
-                  <span class="chart-bar-name">InCoM</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">83.8<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar chart-bar-highlight" style="--value: 88.3%">
-                  <span class="chart-bar-name">MoPA</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">88.3<span class="sr-only">%</span></span></span>
-                </li>
-              </ul>
-            </div>
-          </figure>
-          <figure class="benchmark-chart" aria-labelledby="tidyhouse-title">
-            <figcaption class="chart-heading">
-              <h3 id="tidyhouse-title">TidyHouse</h3>
-              <span>18 skills · Table II</span>
-            </figcaption>
-            <div class="chart-content">
-              <div class="chart-gridlines" aria-hidden="true">
-                <span style="--tick: 0%"><span>100</span></span>
-                <span style="--tick: 25%"><span>75</span></span>
-                <span style="--tick: 50%"><span>50</span></span>
-                <span style="--tick: 75%"><span>25</span></span>
-                <span style="--tick: 100%"><span>0</span></span>
+            </figure>
+            <figure class="benchmark-chart" data-section-reveal aria-labelledby="tidyhouse-title">
+              <figcaption class="chart-heading">
+                <h3 id="tidyhouse-title">TidyHouse</h3>
+                <span>18 skills · Table II</span>
+              </figcaption>
+              <div class="chart-content">
+                <div class="chart-gridlines" aria-hidden="true">
+                  <span style="--tick: 0%"><span>100</span></span>
+                  <span style="--tick: 25%"><span>75</span></span>
+                  <span style="--tick: 50%"><span>50</span></span>
+                  <span style="--tick: 75%"><span>25</span></span>
+                  <span style="--tick: 100%"><span>0</span></span>
+                </div>
+                <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
+                  <li class="chart-bar" style="--value: 16.9%">
+                    <span class="chart-bar-name">ACT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 15.2%">
+                    <span class="chart-bar-name">DP</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.2<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 30.5%">
+                    <span class="chart-bar-name">DP3</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">30.5<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 21.7%">
+                    <span class="chart-bar-name">DSPv2</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.7<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 47.8%">
+                    <span class="chart-bar-name">InCoM</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">47.8<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 51.8%">
+                    <span class="chart-bar-name">GeoHAT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">51.8<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 55.2%">
+                    <span class="chart-bar-name">π<sub>0.5</sub></span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">55.2<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar chart-bar-highlight" style="--value: 72.2%">
+                    <span class="chart-bar-name">MoPA</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">72.2<span class="sr-only">%</span></span></span>
+                  </li>
+                </ul>
               </div>
-              <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
-                <li class="chart-bar" style="--value: 16.9%">
-                  <span class="chart-bar-name">ACT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 15.2%">
-                  <span class="chart-bar-name">DP</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.2<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 30.5%">
-                  <span class="chart-bar-name">DP3</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">30.5<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 21.7%">
-                  <span class="chart-bar-name">DSPv2</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">21.7<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 47.8%">
-                  <span class="chart-bar-name">InCoM</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">47.8<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 51.8%">
-                  <span class="chart-bar-name">GeoHAT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">51.8<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 55.2%">
-                  <span class="chart-bar-name">π<sub>0.5</sub></span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">55.2<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar chart-bar-highlight" style="--value: 72.2%">
-                  <span class="chart-bar-name">MoPA</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">72.2<span class="sr-only">%</span></span></span>
-                </li>
-              </ul>
-            </div>
-          </figure>
-          <figure class="benchmark-chart" aria-labelledby="groceries-title">
-            <figcaption class="chart-heading">
-              <h3 id="groceries-title">PrepareGroceries</h3>
-              <span>18 skills · Table II</span>
-            </figcaption>
-            <div class="chart-content">
-              <div class="chart-gridlines" aria-hidden="true">
-                <span style="--tick: 0%"><span>100</span></span>
-                <span style="--tick: 25%"><span>75</span></span>
-                <span style="--tick: 50%"><span>50</span></span>
-                <span style="--tick: 75%"><span>25</span></span>
-                <span style="--tick: 100%"><span>0</span></span>
+            </figure>
+            <figure class="benchmark-chart" data-section-reveal aria-labelledby="groceries-title">
+              <figcaption class="chart-heading">
+                <h3 id="groceries-title">PrepareGroceries</h3>
+                <span>18 skills · Table II</span>
+              </figcaption>
+              <div class="chart-content">
+                <div class="chart-gridlines" aria-hidden="true">
+                  <span style="--tick: 0%"><span>100</span></span>
+                  <span style="--tick: 25%"><span>75</span></span>
+                  <span style="--tick: 50%"><span>50</span></span>
+                  <span style="--tick: 75%"><span>25</span></span>
+                  <span style="--tick: 100%"><span>0</span></span>
+                </div>
+                <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
+                  <li class="chart-bar" style="--value: 14.8%">
+                    <span class="chart-bar-name">ACT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">14.8<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 9.1%">
+                    <span class="chart-bar-name">DP</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">9.1<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 15.7%">
+                    <span class="chart-bar-name">DP3</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.7<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 16.9%">
+                    <span class="chart-bar-name">DSPv2</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 40.5%">
+                    <span class="chart-bar-name">InCoM</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.5<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 40.2%">
+                    <span class="chart-bar-name">GeoHAT</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.2<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar" style="--value: 60.7%">
+                    <span class="chart-bar-name">π<sub>0.5</sub></span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">60.7<span class="sr-only">%</span></span></span>
+                  </li>
+                  <li class="chart-bar chart-bar-highlight" style="--value: 67.8%">
+                    <span class="chart-bar-name">MoPA</span>
+                    <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">67.8<span class="sr-only">%</span></span></span>
+                  </li>
+                </ul>
               </div>
-              <ul class="chart-bars" aria-label="Macro-averaged skill success rate in percent">
-                <li class="chart-bar" style="--value: 14.8%">
-                  <span class="chart-bar-name">ACT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">14.8<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 9.1%">
-                  <span class="chart-bar-name">DP</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">9.1<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 15.7%">
-                  <span class="chart-bar-name">DP3</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">15.7<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 16.9%">
-                  <span class="chart-bar-name">DSPv2</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">16.9<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 40.5%">
-                  <span class="chart-bar-name">InCoM</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.5<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 40.2%">
-                  <span class="chart-bar-name">GeoHAT</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">40.2<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar" style="--value: 60.7%">
-                  <span class="chart-bar-name">π<sub>0.5</sub></span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">60.7<span class="sr-only">%</span></span></span>
-                </li>
-                <li class="chart-bar chart-bar-highlight" style="--value: 67.8%">
-                  <span class="chart-bar-name">MoPA</span>
-                  <span class="chart-bar-track"><span class="chart-bar-fill"></span><span class="chart-bar-value">67.8<span class="sr-only">%</span></span></span>
-                </li>
-              </ul>
-            </div>
-          </figure>
+            </figure>
+          </div>
         </div>
       </section>
 
       <!-- 真机实验 -->
-      <section id="real-world" class="section container" aria-labelledby="real-world-title">
-        <div class="section-label">REAL WORLD</div>
-        <div class="section-heading">
-          <h2 id="real-world-title">Ready for<br><span>the real world.</span></h2>
-          <p class="section-heading-meta">MoPA jointly trained on 4 tasks in one policy.<br>200 demos and 20 evals per task.</p>
-        </div>
-        <figure class="media-block">
-          <div class="figure-image">
-            <img data-inline-svg="real_exp" src="./assets/real_exp.svg?v=3662d67a0419" width="438" height="178" alt="Real robot execution sequences for collecting fruit into a bowl, sorting blocks into color-matched cups, transferring a block between tables, and retrieving an object from a microwave, alongside the robot platform and baseline comparison chart." loading="lazy" decoding="async">
+      <section id="real-world" class="section" aria-labelledby="real-world-title">
+        <div class="container">
+          <div class="section-label" data-section-reveal>REAL WORLD</div>
+          <div class="section-heading" data-section-reveal>
+            <h2 id="real-world-title">Ready for<br><span>the real world.</span></h2>
+            <p class="section-heading-meta">MoPA jointly trained on 4 tasks in one policy.<br>200 demos and 20 evals per task.</p>
           </div>
-          <figcaption><span>Real-world evaluation of MoPA.</span> (a) Execution sequences for fruit collection, color-matched sorting, cross-table block transfer, and microwave object retrieval. (b) Robot platform. (c) Success rates compared with DP, AC-DiT, and π<sub>0.5</sub>.</figcaption>
-        </figure>
-        <!-- 真机视频 -->
-        <div class="real-world-demos">
-          <section class="demo-task" aria-labelledby="demo-task-1-title">
-            <div class="demo-task-heading">
-              <h3 id="demo-task-1-title"><span class="demo-task-number">01</span>Color-matched sorting</h3>
-              <div class="demo-task-meta"><span>MoPA: 90% success</span><span class="demo-speed">4× speed</span></div>
+          <figure class="media-block" data-section-reveal>
+            <div class="figure-image">
+              <img data-inline-svg="real_exp" src="./assets/real_exp.svg?v=3662d67a0419" width="438" height="178" alt="Real robot execution sequences for collecting fruit into a bowl, sorting blocks into color-matched cups, transferring a block between tables, and retrieving an object from a microwave, alongside the robot platform and baseline comparison chart." loading="lazy" decoding="async">
             </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Color-matched sorting: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
-              <figure class="demo-policy demo-policy--ours">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_mopa.jpg?v=bd18af803f75" aria-label="Color-matched sorting, MoPA policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98" type="video/mp4">
-                  <a href="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98">Watch color-matched sorting, MoPA policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">MoPA</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_dp.jpg?v=88c58d1ab31a" aria-label="Color-matched sorting, DP policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task1_dp.mp4?v=d9a16370905f" type="video/mp4">
-                  <a href="./assets/demos/web/task1_dp.mp4?v=d9a16370905f">Watch color-matched sorting, DP policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">DP</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_acdit.jpg?v=3cb8ba59c14c" aria-label="Color-matched sorting, AC-DiT policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8" type="video/mp4">
-                  <a href="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8">Watch color-matched sorting, AC-DiT policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">AC-DiT</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_pi05.jpg?v=1ada9f402d96" aria-label="Color-matched sorting, π0.5 policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task1_pi05.mp4?v=0542390b4574" type="video/mp4">
-                  <a href="./assets/demos/web/task1_pi05.mp4?v=0542390b4574">Watch color-matched sorting, π0.5 policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
-              </figure>
-            </div>
-          </section>
-          <section class="demo-task" aria-labelledby="demo-task-2-title">
-            <div class="demo-task-heading">
-              <h3 id="demo-task-2-title"><span class="demo-task-number">02</span>Fruit collection</h3>
-              <div class="demo-task-meta"><span>MoPA: 85% success</span><span class="demo-speed">4× speed</span></div>
-            </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Fruit collection: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
-              <figure class="demo-policy demo-policy--ours">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_mopa.jpg?v=c83b3948d3b9" aria-label="Fruit collection, MoPA policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f" type="video/mp4">
-                  <a href="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f">Watch fruit collection, MoPA policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">MoPA</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_dp.jpg?v=00b4d1b53d7d" aria-label="Fruit collection, DP policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d" type="video/mp4">
-                  <a href="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d">Watch fruit collection, DP policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">DP</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_acdit.jpg?v=ae02daa3e3d3" aria-label="Fruit collection, AC-DiT policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a" type="video/mp4">
-                  <a href="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a">Watch fruit collection, AC-DiT policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">AC-DiT</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_pi05.jpg?v=eddb3c0e1006" aria-label="Fruit collection, π0.5 policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169" type="video/mp4">
-                  <a href="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169">Watch fruit collection, π0.5 policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
-              </figure>
-            </div>
-          </section>
-          <section class="demo-task" aria-labelledby="demo-task-3-title">
-            <div class="demo-task-heading">
-              <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table block transfer</h3>
-              <div class="demo-task-meta"><span>MoPA: 75% success</span><span class="demo-speed">4× speed</span></div>
-            </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table block transfer: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
-              <figure class="demo-policy demo-policy--ours">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_mopa.jpg?v=7b94550f4d45" aria-label="Cross-table block transfer, MoPA policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c" type="video/mp4">
-                  <a href="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c">Watch cross-table block transfer, MoPA policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">MoPA</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_dp.jpg?v=1229a2abc8d5" aria-label="Cross-table block transfer, DP policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d" type="video/mp4">
-                  <a href="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d">Watch cross-table block transfer, DP policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">DP</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_acdit.jpg?v=0ea48a001b5f" aria-label="Cross-table block transfer, AC-DiT policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3" type="video/mp4">
-                  <a href="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3">Watch cross-table block transfer, AC-DiT policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">AC-DiT</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_pi05.jpg?v=837ba4faed50" aria-label="Cross-table block transfer, π0.5 policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36" type="video/mp4">
-                  <a href="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36">Watch cross-table block transfer, π0.5 policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
-              </figure>
-            </div>
-          </section>
-          <section class="demo-task" aria-labelledby="demo-task-4-title">
-            <div class="demo-task-heading">
-              <h3 id="demo-task-4-title"><span class="demo-task-number">04</span>Microwave object retrieval</h3>
-              <div class="demo-task-meta"><span>MoPA: 55% success</span><span class="demo-speed">4× speed</span></div>
-            </div>
-            <div class="demo-video-row" tabindex="0" role="region" aria-label="Microwave object retrieval: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
-              <figure class="demo-policy demo-policy--ours">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_mopa.jpg?v=982797644bcb" aria-label="Microwave object retrieval, MoPA policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4" type="video/mp4">
-                  <a href="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4">Watch microwave object retrieval, MoPA policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">MoPA</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_dp.jpg?v=c3b3dc54a8f6" aria-label="Microwave object retrieval, DP policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task4_dp.mp4?v=b148585fc15f" type="video/mp4">
-                  <a href="./assets/demos/web/task4_dp.mp4?v=b148585fc15f">Watch microwave object retrieval, DP policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">DP</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_acdit.jpg?v=d7e7dd332c71" aria-label="Microwave object retrieval, AC-DiT policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task4_acdit.mp4?v=27293963efff" type="video/mp4">
-                  <a href="./assets/demos/web/task4_acdit.mp4?v=27293963efff">Watch microwave object retrieval, AC-DiT policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">AC-DiT</figcaption>
-              </figure>
-              <figure class="demo-policy">
-                <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_pi05.jpg?v=917f689ad8ab" aria-label="Microwave object retrieval, π0.5 policy, 4 times real-time speed">
-                  <source src="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f" type="video/mp4">
-                  <a href="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f">Watch microwave object retrieval, π0.5 policy (4× speed)</a>
-                </video>
-                <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
-              </figure>
-            </div>
-          </section>
+            <figcaption><span>Real-world evaluation of MoPA.</span> (a) Execution sequences for fruit collection, color-matched sorting, cross-table block transfer, and microwave object retrieval. (b) Robot platform. (c) Success rates compared with DP, AC-DiT, and π<sub>0.5</sub>.</figcaption>
+          </figure>
+          <!-- 真机视频 -->
+          <div class="real-world-demos">
+            <section class="demo-task" data-section-reveal aria-labelledby="demo-task-1-title">
+              <div class="demo-task-heading">
+                <h3 id="demo-task-1-title"><span class="demo-task-number">01</span>Color-matched sorting</h3>
+                <div class="demo-task-meta"><span>MoPA: 90% success</span><span class="demo-speed">4× speed</span></div>
+              </div>
+              <div class="demo-video-row" tabindex="0" role="region" aria-label="Color-matched sorting: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+                <figure class="demo-policy demo-policy--ours">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_mopa.jpg?v=bd18af803f75" aria-label="Color-matched sorting, MoPA policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98" type="video/mp4">
+                    <a href="./assets/demos/web/task1_mopa.mp4?v=d74dc6b9ae98">Watch color-matched sorting, MoPA policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">MoPA</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_dp.jpg?v=88c58d1ab31a" aria-label="Color-matched sorting, DP policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task1_dp.mp4?v=d9a16370905f" type="video/mp4">
+                    <a href="./assets/demos/web/task1_dp.mp4?v=d9a16370905f">Watch color-matched sorting, DP policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">DP</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_acdit.jpg?v=3cb8ba59c14c" aria-label="Color-matched sorting, AC-DiT policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8" type="video/mp4">
+                    <a href="./assets/demos/web/task1_acdit.mp4?v=038ad7b46ea8">Watch color-matched sorting, AC-DiT policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">AC-DiT</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task1_pi05.jpg?v=1ada9f402d96" aria-label="Color-matched sorting, π0.5 policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task1_pi05.mp4?v=0542390b4574" type="video/mp4">
+                    <a href="./assets/demos/web/task1_pi05.mp4?v=0542390b4574">Watch color-matched sorting, π0.5 policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+                </figure>
+              </div>
+            </section>
+            <section class="demo-task" data-section-reveal aria-labelledby="demo-task-2-title">
+              <div class="demo-task-heading">
+                <h3 id="demo-task-2-title"><span class="demo-task-number">02</span>Fruit collection</h3>
+                <div class="demo-task-meta"><span>MoPA: 85% success</span><span class="demo-speed">4× speed</span></div>
+              </div>
+              <div class="demo-video-row" tabindex="0" role="region" aria-label="Fruit collection: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+                <figure class="demo-policy demo-policy--ours">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_mopa.jpg?v=c83b3948d3b9" aria-label="Fruit collection, MoPA policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f" type="video/mp4">
+                    <a href="./assets/demos/web/task2_mopa.mp4?v=c84e144f011f">Watch fruit collection, MoPA policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">MoPA</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_dp.jpg?v=00b4d1b53d7d" aria-label="Fruit collection, DP policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d" type="video/mp4">
+                    <a href="./assets/demos/web/task2_dp.mp4?v=4f4c83aa739d">Watch fruit collection, DP policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">DP</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_acdit.jpg?v=ae02daa3e3d3" aria-label="Fruit collection, AC-DiT policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a" type="video/mp4">
+                    <a href="./assets/demos/web/task2_acdit.mp4?v=963c4f798e1a">Watch fruit collection, AC-DiT policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">AC-DiT</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task2_pi05.jpg?v=eddb3c0e1006" aria-label="Fruit collection, π0.5 policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169" type="video/mp4">
+                    <a href="./assets/demos/web/task2_pi05.mp4?v=4537b83a2169">Watch fruit collection, π0.5 policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+                </figure>
+              </div>
+            </section>
+            <section class="demo-task" data-section-reveal aria-labelledby="demo-task-3-title">
+              <div class="demo-task-heading">
+                <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table block transfer</h3>
+                <div class="demo-task-meta"><span>MoPA: 75% success</span><span class="demo-speed">4× speed</span></div>
+              </div>
+              <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table block transfer: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+                <figure class="demo-policy demo-policy--ours">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_mopa.jpg?v=7b94550f4d45" aria-label="Cross-table block transfer, MoPA policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c" type="video/mp4">
+                    <a href="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c">Watch cross-table block transfer, MoPA policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">MoPA</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_dp.jpg?v=1229a2abc8d5" aria-label="Cross-table block transfer, DP policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d" type="video/mp4">
+                    <a href="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d">Watch cross-table block transfer, DP policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">DP</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_acdit.jpg?v=0ea48a001b5f" aria-label="Cross-table block transfer, AC-DiT policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3" type="video/mp4">
+                    <a href="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3">Watch cross-table block transfer, AC-DiT policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">AC-DiT</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_pi05.jpg?v=837ba4faed50" aria-label="Cross-table block transfer, π0.5 policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36" type="video/mp4">
+                    <a href="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36">Watch cross-table block transfer, π0.5 policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+                </figure>
+              </div>
+            </section>
+            <section class="demo-task" data-section-reveal aria-labelledby="demo-task-4-title">
+              <div class="demo-task-heading">
+                <h3 id="demo-task-4-title"><span class="demo-task-number">04</span>Microwave object retrieval</h3>
+                <div class="demo-task-meta"><span>MoPA: 55% success</span><span class="demo-speed">4× speed</span></div>
+              </div>
+              <div class="demo-video-row" tabindex="0" role="region" aria-label="Microwave object retrieval: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+                <figure class="demo-policy demo-policy--ours">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_mopa.jpg?v=982797644bcb" aria-label="Microwave object retrieval, MoPA policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4" type="video/mp4">
+                    <a href="./assets/demos/web/task4_mopa.mp4?v=4f3c45f5fce4">Watch microwave object retrieval, MoPA policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">MoPA</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_dp.jpg?v=c3b3dc54a8f6" aria-label="Microwave object retrieval, DP policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task4_dp.mp4?v=b148585fc15f" type="video/mp4">
+                    <a href="./assets/demos/web/task4_dp.mp4?v=b148585fc15f">Watch microwave object retrieval, DP policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">DP</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_acdit.jpg?v=d7e7dd332c71" aria-label="Microwave object retrieval, AC-DiT policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task4_acdit.mp4?v=27293963efff" type="video/mp4">
+                    <a href="./assets/demos/web/task4_acdit.mp4?v=27293963efff">Watch microwave object retrieval, AC-DiT policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">AC-DiT</figcaption>
+                </figure>
+                <figure class="demo-policy">
+                  <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task4_pi05.jpg?v=917f689ad8ab" aria-label="Microwave object retrieval, π0.5 policy, 4 times real-time speed">
+                    <source src="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f" type="video/mp4">
+                    <a href="./assets/demos/web/task4_pi05.mp4?v=ed0632ae2b2f">Watch microwave object retrieval, π0.5 policy (4× speed)</a>
+                  </video>
+                  <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
+                </figure>
+              </div>
+            </section>
+          </div>
         </div>
       </section>
 
       <!-- 引用信息：出版信息待补充。 -->
-      <section id="citation" class="section container citation-section" aria-labelledby="citation-title">
-        <div class="section-label">CITATION</div>
-        <div class="citation-heading">
-          <div><h2 id="citation-title">Build on this work.</h2></div>
-          <button type="button" class="copy-button" data-copy-citation aria-label="Copy BibTeX citation">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg>
-            <span data-copy-label>Copy BibTeX</span>
-          </button>
-        </div>
-        <pre class="citation-code" tabindex="0"><code id="bibtex">@misc{mopa,
+      <section id="citation" class="section citation-section" aria-labelledby="citation-title">
+        <div class="container">
+          <div class="section-label" data-section-reveal>CITATION</div>
+          <div class="citation-heading" data-section-reveal>
+            <div><h2 id="citation-title">Build on this work.</h2></div>
+            <button type="button" class="copy-button" data-copy-citation aria-label="Copy BibTeX citation">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="8" y="8" width="12" height="13" rx="2"></rect><path d="M15 8V3H3v13h5"></path></svg>
+              <span data-copy-label>Copy BibTeX</span>
+            </button>
+          </div>
+          <pre class="citation-code" data-section-reveal tabindex="0"><code id="bibtex">@misc{mopa,
   author = {Chen, Guangyu and Liang, Qiwei and Zhu, Shaolong and
             Chen, Tianxing and Xiao, Zikuan and Xie, Yifan and
             Zhang, Lingfeng and Luo, Ping and Xu, Renjing and
@@ -488,12 +503,15 @@
            Perception Alignment and Action Coordination},
   note  = {Manuscript}
 }</code></pre>
-        <p class="copy-status" role="status" aria-live="polite" data-copy-status></p>
+          <p class="copy-status" role="status" aria-live="polite" data-copy-status></p>
+        </div>
       </section>
     </main>
-    <footer class="site-footer container">
-      <a class="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+    <footer class="site-footer">
+      <div class="footer-inner container">
+        <a class="back-top" href="#top">Back to top <span aria-hidden="true">↑</span></a>
+      </div>
     </footer>
-    <script src="./script.js?v=476203b861fe" defer></script>
+    <script src="./script.js?v=27ee4bea4d28" defer></script>
   </body>
 </html>
