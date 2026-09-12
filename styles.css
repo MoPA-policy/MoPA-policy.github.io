@@ -635,12 +635,12 @@ h2 > span {
   flex-shrink: 0;
 }
 .button-arxiv {
-  background: #fff3f2;
-  border-color: #f0cdca;
-  color: #b31b1b;
+  background: #b31b1b;
+  border-color: #b31b1b;
+  color: #fff;
 }
 .button-arxiv[href]:hover {
-  background: #ffe9e7;
+  background: #9f1818;
 }
 .button-code {
   background: #191919;
@@ -651,12 +651,12 @@ h2 > span {
   background: #303030;
 }
 .button-huggingface {
-  background: #fff0ab;
-  border-color: #ecd47a;
-  color: #574516;
+  background: #ffe16b;
+  border-color: #e5c456;
+  color: #32343d;
 }
 .button-huggingface[href]:hover {
-  background: #ffe88a;
+  background: #ffd954;
 }
 .button-huggingface .brand-logo {
   width: 26px;
