@@ -35,7 +35,7 @@
       </details>
     </header>
     <main id="top">
-      <!-- 论文标题与作者；资源链接待填写。 -->
+      <!-- 论文标题、作者与资源链接。 -->
       <section id="overview" class="hero" aria-labelledby="paper-title">
         <div class="hero-background" aria-hidden="true">
           <video data-hero-video data-hero-4k-src="./assets/demos/web/background-4k-2x.mp4" muted loop playsinline preload="none" width="3840" height="2160" poster="./assets/demos/web/background-hd.jpg" tabindex="-1">
@@ -66,7 +66,7 @@
             </p>
             <p class="author-notes">
               <span>* Equal contribution</span>
-              <span>† Corresponding author</span>
+              <span>† Corresponding authors</span>
             </p>
           </div>
           <div class="affiliation-logos" role="group" aria-label="Affiliated institutions">
@@ -83,9 +83,9 @@
               <img src="./assets/logos/hku.svg" width="208" height="40" alt="The University of Hong Kong" decoding="async">
             </span>
           </div>
-          <!-- 链接暂留空：为对应 a 标签添加 href="实际网址" 并移除 aria-disabled；代码发布后可去掉 Coming soon。 -->
+          <!-- arXiv 已公开；代码与数据链接待发布后补充。 -->
           <div class="hero-actions">
-            <a class="button button-arxiv" role="link" aria-disabled="true" target="_blank" rel="noopener noreferrer">
+            <a class="button button-arxiv" href="https://arxiv.org/abs/2609.12081" target="_blank" rel="noopener noreferrer">
               <img class="brand-logo" src="./assets/logos/arxiv.svg?v=e47c3b742ed5" width="22" height="22" alt="" aria-hidden="true"> arXiv
             </a>
             <a class="button button-code" role="link" aria-disabled="true" target="_blank" rel="noopener noreferrer">
@@ -325,13 +325,13 @@
           <div class="section-label" data-section-reveal>REAL WORLD</div>
           <div class="section-heading" data-section-reveal>
             <h2 id="real-world-title">Ready for<br><span>the real world.</span></h2>
-            <p class="section-heading-meta">MoPA jointly trained on 4 tasks in one policy.<br>200 demos and 20 evals per task.</p>
+            <p class="section-heading-meta">One MoPA policy jointly trained on all 4 tasks.<br>200 demonstrations and 20 evaluation trials per task.</p>
           </div>
           <figure class="media-block" data-section-reveal>
             <div class="figure-image">
-              <img data-inline-svg="real_exp" src="./assets/real_exp.svg?v=3662d67a0419" width="438" height="178" alt="Real robot execution sequences for collecting fruit into a bowl, sorting blocks into color-matched cups, transferring a block between tables, and retrieving an object from a microwave, alongside the robot platform and baseline comparison chart." loading="lazy" decoding="async">
+              <img data-inline-svg="real_exp" src="./assets/real_exp.svg?v=f8dc78d3abd6" width="438" height="181" alt="Real robot execution sequences for collecting fruit into a bowl, sorting blocks into color-matched cups, transferring a fruit between tables, and retrieving an object from a microwave, alongside the robot platform and baseline comparison chart." loading="lazy" decoding="async">
             </div>
-            <figcaption><span>Real-world evaluation of MoPA.</span> (a) Execution sequences for fruit collection, color-matched sorting, cross-table block transfer, and microwave object retrieval. (b) Robot platform. (c) Success rates compared with DP, AC-DiT, and π<sub>0.5</sub>.</figcaption>
+            <figcaption><span>Real-world evaluation of MoPA.</span> (a) Execution sequences for fruit collection, color-matched sorting, cross-table fruit transfer, and microwave object retrieval. (b) Robot platform. (c) Success rates compared with DP, AC-DiT, and π<sub>0.5</sub>.</figcaption>
           </figure>
           <!-- 真机视频 -->
           <div class="real-world-demos">
@@ -425,42 +425,42 @@
             </section>
             <section class="demo-task" data-section-reveal aria-labelledby="demo-task-3-title">
               <div class="demo-task-heading">
-                <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table block transfer</h3>
+                <h3 id="demo-task-3-title"><span class="demo-task-number">03</span>Cross-table fruit transfer</h3>
                 <span class="demo-speed">4× speed</span>
               </div>
-              <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table block transfer: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
+              <div class="demo-video-row" tabindex="0" role="region" aria-label="Cross-table fruit transfer: MoPA, DP, AC-DiT, and π0.5; scroll horizontally on small screens" data-native-scroll>
                 <figure class="demo-policy demo-policy--ours">
                   <div class="demo-video-frame">
-                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_mopa.jpg?v=7b94550f4d45" aria-label="Cross-table block transfer, MoPA policy, 4 times real-time speed">
+                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_mopa.jpg?v=7b94550f4d45" aria-label="Cross-table fruit transfer, MoPA policy, 4 times real-time speed">
                       <source src="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c" type="video/mp4">
-                      <a href="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c">Watch cross-table block transfer, MoPA policy (4× speed)</a>
+                      <a href="./assets/demos/web/task3_mopa.mp4?v=a93e387e074c">Watch cross-table fruit transfer, MoPA policy (4× speed)</a>
                     </video>
                   </div>
                   <figcaption class="demo-policy-label">MoPA</figcaption>
                 </figure>
                 <figure class="demo-policy">
                   <div class="demo-video-frame">
-                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_dp.jpg?v=1229a2abc8d5" aria-label="Cross-table block transfer, DP policy, 4 times real-time speed">
+                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_dp.jpg?v=1229a2abc8d5" aria-label="Cross-table fruit transfer, DP policy, 4 times real-time speed">
                       <source src="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d" type="video/mp4">
-                      <a href="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d">Watch cross-table block transfer, DP policy (4× speed)</a>
+                      <a href="./assets/demos/web/task3_dp.mp4?v=bc0a8e0b843d">Watch cross-table fruit transfer, DP policy (4× speed)</a>
                     </video>
                   </div>
                   <figcaption class="demo-policy-label">DP</figcaption>
                 </figure>
                 <figure class="demo-policy">
                   <div class="demo-video-frame">
-                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_acdit.jpg?v=0ea48a001b5f" aria-label="Cross-table block transfer, AC-DiT policy, 4 times real-time speed">
+                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_acdit.jpg?v=0ea48a001b5f" aria-label="Cross-table fruit transfer, AC-DiT policy, 4 times real-time speed">
                       <source src="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3" type="video/mp4">
-                      <a href="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3">Watch cross-table block transfer, AC-DiT policy (4× speed)</a>
+                      <a href="./assets/demos/web/task3_acdit.mp4?v=56c366bc87d3">Watch cross-table fruit transfer, AC-DiT policy (4× speed)</a>
                     </video>
                   </div>
                   <figcaption class="demo-policy-label">AC-DiT</figcaption>
                 </figure>
                 <figure class="demo-policy">
                   <div class="demo-video-frame">
-                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_pi05.jpg?v=837ba4faed50" aria-label="Cross-table block transfer, π0.5 policy, 4 times real-time speed">
+                    <video data-demo-video controls muted loop playsinline preload="none" width="960" height="540" poster="./assets/demos/web/task3_pi05.jpg?v=837ba4faed50" aria-label="Cross-table fruit transfer, π0.5 policy, 4 times real-time speed">
                       <source src="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36" type="video/mp4">
-                      <a href="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36">Watch cross-table block transfer, π0.5 policy (4× speed)</a>
+                      <a href="./assets/demos/web/task3_pi05.mp4?v=8a56ee09db36">Watch cross-table fruit transfer, π0.5 policy (4× speed)</a>
                     </video>
                   </div>
                   <figcaption class="demo-policy-label">π<sub>0.5</sub></figcaption>
@@ -515,7 +515,7 @@
         </div>
       </section>
 
-      <!-- 引用信息：出版信息待补充。 -->
+      <!-- arXiv 引用信息。 -->
       <section id="citation" class="section citation-section" aria-labelledby="citation-title">
         <div class="container">
           <div class="section-label" data-section-reveal>CITATION</div>
@@ -533,7 +533,11 @@
             Ding, Wenbo},
   title = {{MoPA}: Coordinated Mobile Manipulation via
            Subsystem-Specific Perception Alignment},
-  note  = {Manuscript}
+  year = {2026},
+  eprint = {2609.12081},
+  archivePrefix = {arXiv},
+  primaryClass = {cs.RO},
+  url = {https://arxiv.org/abs/2609.12081}
 }</code></pre>
           <p class="copy-status" role="status" aria-live="polite" data-copy-status></p>
         </div>
