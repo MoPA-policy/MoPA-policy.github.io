@@ -662,6 +662,10 @@ h2 > span {
   width: 26px;
   height: 26px;
 }
+.button-huggingface .button-status {
+  color: #6b6d75;
+  border-left-color: #32343d40;
+}
 
 .section {
   padding-block: 48px 96px;
@@ -745,6 +749,11 @@ h2 > span {
   }
   .button {
     width: 205px;
+  }
+  .button-huggingface {
+    width: auto;
+    min-width: 205px;
+    max-width: 100%;
   }
 
   .desktop-break {
